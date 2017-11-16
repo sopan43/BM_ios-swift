@@ -36,6 +36,9 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="fAV-QQ-fXa"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter User name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKY-wQ-hUX">
                                 <rect key="frame" x="152" y="245" width="128" height="21"/>
@@ -380,6 +383,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="uH7-wH-zpY"/>
-        <segue reference="mrH-yq-kTE"/>
+        <segue reference="NjW-ha-pti"/>
     </inferredMetricsTieBreakers>
 </document>

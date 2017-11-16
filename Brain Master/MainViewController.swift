@@ -12,6 +12,7 @@ import AVFoundation
 
 class MainViewController: UIViewController{
 
+    
     var indexv:String!
     var score:Float = 0
     var AudioPlayer = AVAudioPlayer()
@@ -21,7 +22,7 @@ class MainViewController: UIViewController{
     var b12:Bool = false
 
     
-    var count:Int = 0
+    var count:Float = 0
     var x:Int = 0
     var someInts = [Int](repeating: 0, count: 3)
     var q = [String]()
@@ -39,10 +40,17 @@ class MainViewController: UIViewController{
      @IBOutlet weak var ques: UILabel!
      @IBOutlet weak var scr: UILabel!
     
+   
+ 
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+      
+        
+        
         t1.text = "Sopan"
         
         do{
@@ -131,56 +139,71 @@ class MainViewController: UIViewController{
             ans[2] = 3;
             
             q.append(" Which number will come next?")
-            b1[4] = "  30 ";
-            b2[4] = "  28 ";
-            b3[4] = "54";
-            b4[4] = "48 ";
+            b1.append("  30 ");
+            b2.append("  28 ");
+            b3.append("54")
+            b4.append("48 ");
             ans[3] = 2;
             
-            q[3] = "  If a car is sold for Rs.50000 the profit is 17   percent,   what   would   be   profit percentage if sold for Rs. 47000";
-            b1[3] = "  16.20% ";
-            b2[3] = "  14.50%  ";
-            b3[3] = "14.85%";
-            b4[3] = "15.98% ";
+            q.append( "  If a car is sold for Rs.50000 the profit is 17   percent,   what   would   be   profit percentage if sold for Rs. 47000")
+            b1.append("  16.20% ");
+            b2.append("  14.50%  ");
+            b3.append("14.85%");
+            b4.append("15.98% ");
+            ans[4] = 4;
+            
+            q.append( "  If a car is sold for Rs.50000 the profit is 17   percent,   what   would   be   profit percentage if sold for Rs. 47000")
+            b1.append("  16.20% ");
+            b2.append("  14.50%  ");
+            b3.append("14.85%");
+            b4.append("15.98% ");
             ans[4] = 4;
         }
         else if (indexv == "10"){
             indexv = "0";
             x = 30000;
-            q[0] = " If Logx (1 / 8) = - 3 / 2, then x is equal to  ";
-            b1[0] = "  -4 ";
-            b2[0] = "  4 ";
-            b3[0] = "1/4";
-            b4[0] = "10 ";
+            q.append(" If Logx (1 / 8) = - 3 / 2, then x is equal to  ")
+            b1.append("  -4 ");
+            b2.append("  4 ");
+            b3.append("1/4");
+            b4.append("10 ");
             ans[0] = 2;
             
-            q[1] = " If the graph of y = f(x) is transformed into the graph of 2y - 6 = - 4 f(x - 3), point (a , b) on the graph of y = f(x) becomes point (A , B) on the graph of 2y - 6 = - 4 f(x - 3) where A and B are given by ";
-            b1[1] = "  A = a - 3, B = b  ";
-            b2[1] = "  A = a - 3, B = b  ";
-            b3[1] = "A = a + 3, B = -2 b ";
-            b4[1] = " A = a + 3, B = -2 b +3 ";
+            q.append(" If the graph of y = f(x) is transformed into the graph of 2y - 6 = - 4 f(x - 3), point (a , b) on the graph of y = f(x) becomes point (A , B) on the graph of 2y - 6 = - 4 f(x - 3) where A and B are given by ");
+            b1.append("  A = a - 3, B = b  ");
+            b2.append("  A = a - 3, B = b  ");
+            b3.append("A = a + 3, B = -2 b ");
+            b4.append (" A = a + 3, B = -2 b +3 ");
             ans[1] = 4;
             
-            q[2] = " When a parabola represented by the equation y - 2x 2 = 8 x + 5 is translated 3 units to the left and 2 units up, the new parabola has its vertex at ";
-            b1[2] = "  (-5 , -1)  ";
-            b2[2] = "  (-5 , -5) ";
-            b3[2] = "(-1 , -3) ";
-            b4[2] = "(-2 , -3) ";
+            q.append("When a parabola represented by the equation y - 2x 2 = 8 x + 5 is translated 3 units to the left and 2 units up, the new parabola has its vertex at");
+            b1.append("  (-5 , -1)  ");
+            b2.append("  (-5 , -5) ");
+            b3.append("(-1 , -3) ");
+            b4.append( "(-2 , -3) ");
             ans[2] = 1;
             
-            q[3] = " The probability that an electronic device produced by a company does not function properly is equal to 0.1. If 10 devices are bought, then the probability, to the nearest thousandth, that 7 devices function properly is ";
-            b1[3] = "  0  ";
-            b2[3] = "  0.478 ";
-            b3[3] = "0.057 ";
-            b4[3] = " 0.001 ";
+            q.append("The probability that an electronic device produced by a company does not function properly is equal to 0.1. If 10 devices are bought, then the probability, to the nearest thousandth, that 7 devices function properly is");
+            b1.append("  0  ");
+            b2.append("  0.478 ");
+            b3.append("0.057 ");
+            b4.append(" 0.001 ");
             ans[3] = 3;
             
-            q[4] = " When a metallic ball bearing is placed inside a cylindrical container, of radius 2 cm, the height of the water, inside the container, increases by 0.6 cm. The radius, to the nearest tenth of a centimeter, of the ball bearing is ";
-            b1[4] = "  1 cm ";
-            b2[4] = "  1.2 cm  ";
-            b3[4] = "52 cm ";
-            b4[4] = "0.6 cm ";
+            q.append("When a metallic ball bearing is placed inside a cylindrical container, of radius 2 cm, the height of the water, inside the container, increases by 0.6 cm. The radius, to the nearest tenth of a centimeter, of the ball bearing is");
+            b1.append("  1 cm ");
+            b2.append("  1.2 cm  ");
+            b3.append("52 cm ");
+            b4.append( "0.6 cm ");
             ans[4] = 2;
+            
+            q.append("When a metallic ball bearing is placed inside a cylindrical container, of radius 2 cm, the height of the water, inside the container, increases by 0.6 cm. The radius, to the nearest tenth of a centimeter, of the ball bearing is");
+            b1.append("  1 cm ");
+            b2.append("  1.2 cm  ");
+            b3.append("52 cm ");
+            b4.append( "0.6 cm ");
+            ans[4] = 2;
+
         }
             
             
@@ -454,6 +477,8 @@ class MainViewController: UIViewController{
         btn1.setTitle(b1[Int(indexv)!], for: .normal)
 
     }
+    
+   
 
     /*
     // MARK: - Navigation
