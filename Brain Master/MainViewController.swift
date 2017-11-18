@@ -17,9 +17,12 @@ class MainViewController: UIViewController{
     var score:Float = 0
     var AudioPlayer = AVAudioPlayer()
   var WAudioPlayer = AVAudioPlayer()
+    var tindex:Int = 0
+    
     
     var b:Bool = false
     var b12:Bool = false
+    var bool2:Bool = false
 
     
     var count:Float = 0
@@ -31,6 +34,7 @@ class MainViewController: UIViewController{
     var b3 = [String]()
     var b4 = [String]()
     var ans = [Int](repeating: 0, count: 7)
+    var uans = [Int](repeating: 0, count: 7)
     
     @IBOutlet weak var t1: UILabel!
     @IBOutlet weak var btn1: UIButton!
@@ -39,16 +43,21 @@ class MainViewController: UIViewController{
     @IBOutlet weak var btn4: UIButton!
      @IBOutlet weak var ques: UILabel!
      @IBOutlet weak var scr: UILabel!
+     @IBOutlet weak var btn5: UIButton!
     
-   
- 
+    @IBOutlet weak var tellUser: UILabel!
+    @IBOutlet weak var userLabel: UILabel!
+    
+    @IBOutlet weak var correctLabel: UILabel!
+    
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
+      btn5.isHidden = true
+        btn5.isUserInteractionEnabled = false
         
         
         t1.text = "Sopan"
@@ -71,7 +80,7 @@ class MainViewController: UIViewController{
         
         if (indexv == "0") {
             x = 10000;
-            
+         tindex = (indexv as NSString).integerValue
             q.append( "Two angles of a triangle measure 15° and 85 °. What is the measure for the third angle?")
             b1.append("  50°")
             b2.append("  80°  ")
@@ -115,6 +124,7 @@ class MainViewController: UIViewController{
             ans[4] = 2;
         }
         else if (indexv == "5"){
+            
             indexv = "0";
             x = 20000;
             q.append("Which is the greatest number?")
@@ -346,8 +356,12 @@ class MainViewController: UIViewController{
             ans[4] = 3;
             
         }
-            
+           
         else{}
+        tellUser.isHidden = true
+        correctLabel.isHidden = true
+        userLabel.isHidden = true
+        
         updatecon()
 
         // Do any additional setup after loading the view.
@@ -364,19 +378,31 @@ class MainViewController: UIViewController{
         check(i: 1)
     }
     @IBAction func click2(_ sender: UIButton){
+        if(bool2){
+            summeryPrep()
+        }
+        else{
         check(i: 2)
+        }
     }
     @IBAction func click13(_ sender: UIButton){
+        
+        var okHandler = {
+            (a:UIAlertAction) -> Void in
+                exit(0)
+        }
+        
         if (b12){
-         exit(0)
-        
-            //let alert = UIAlertController(title: "Exit", message: "Are you sure?", preferredStyle: .alert)
-            
-        
+            let alert = UIAlertController(title: "Exit", message: "Are you sure?", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: okHandler))
+            alert.addAction(UIAlertAction(title: "Cancle", style: UIAlertActionStyle.default))
+            self.present(alert, animated:true,completion: nil)
         
         }
+        
         else {
-        check(i: 3)
+        
+            check(i: 3)
         }
     }
     @IBAction func click4(_ sender: UIButton){
@@ -390,12 +416,16 @@ class MainViewController: UIViewController{
     }
     
     func lastSegue(){
+        
         self.performSegue(withIdentifier: "LastSu", sender: self)
     }
     
     
     func check(i: Int) -> Int {
         var index = (indexv as NSString).integerValue
+        
+        uans[Int(indexv)!] = i
+        
         if(ans[index] == (i))
         {
             
@@ -431,11 +461,17 @@ class MainViewController: UIViewController{
             else{
                 WAudioPlayer.play()
             }
+            
+            
+            
+            
             index += 1
             count += 1
             score = score - 0.25
             indexv = String(index)
-            updatecon();
+           
+               updatecon();
+            
         }
         
         
@@ -445,10 +481,11 @@ class MainViewController: UIViewController{
             
             btn4.setTitle("Continue", for: .normal);
             btn3.setTitle("Exit", for: .normal);
-          
+          btn2.setTitle("Review Answers", for: .normal);
             ans[index]=5;
             b = true
             b12 = true
+            bool2 = true
             hide()
         }
         indexv = String(index)
@@ -460,26 +497,138 @@ class MainViewController: UIViewController{
     func hide(){
         btn1.isHidden = true
        // btn3.isHidden = true
-        btn2.isHidden = true
+        btn1.isUserInteractionEnabled = false
         scr.isHidden = true
         ques.isHidden = true
+        
         
     }
     
     func updatecon(){
-         scr.text = ("Score " + String(score));
-        ques.text = ("Question" + String(count+1));
+        
         t1.text = q[Int(indexv)!]
+        if(!b12){
+            scr.text = ("Score " + String(score));
+            ques.text = ("Question" + String(count+1));
         btn1.setTitle(b1[Int(indexv)!], for: .normal)
         btn2.setTitle(b2[Int(indexv)!], for: .normal)
         btn3.setTitle(b3[Int(indexv)!], for: .normal)
         btn4.setTitle(b4[Int(indexv)!], for: .normal)
         btn1.setTitle(b1[Int(indexv)!], for: .normal)
-
+        }
     }
     
-   
+    func summeryPrep(){
+        btn5.isHidden = false
+        btn5.isUserInteractionEnabled = true
+        btn3.isSelected = false
+        btn3.isEnabled = false
+        btn4.isEnabled = false
+        btn3.isUserInteractionEnabled = false
+        btn4.isUserInteractionEnabled = false
+        tellUser.isHidden = false
+        count = 0
+        var index = (indexv as NSString).integerValue
+        index = 0
+        indexv = String(index)
+        //updatecon()
+        
+        btn2.isHidden = true
+        btn2.isEnabled = false
+        btn2.isUserInteractionEnabled = false
+        
+        ques.isHidden = false
+        scr.isHidden = false
+        
+        correctLabel.isHidden = false
+        userLabel.isHidden = false
+        summery()
+        
+        
+    }
+    
+    @IBAction func summery(){
+       
+        
+        
+        
+        
+        if(count >= 5){
+            t1.text = ("Thankyou For Taking Quiz Your Final Score is  " + String(score));
+            btn5.isHidden = true
+            btn3.setTitle("Exit", for: .normal);
+             btn4.setTitle("Continue", for: .normal);
+            btn3.isEnabled = true
+            btn3.isUserInteractionEnabled = true
+            btn4.isEnabled = true
+            btn4.isUserInteractionEnabled = true
+            tellUser.isHidden = true
+            correctLabel.isHidden = true
+            userLabel.isHidden = true
+        }
+        else{
+              var index:Int = (indexv as NSString).integerValue
+            updatecon()
+            
 
+            if(ans[index] == 1){
+                // btn3.setTitle(b1[Int(indexv)!], for: .normal)
+                btn3.setTitle(b1[Int(indexv)!], for: .normal)
+            }
+            
+            if(ans[index] == 2){
+               btn3.setTitle(b2[Int(indexv)!], for: .normal)
+            }
+            
+            if(ans[index] == 3){
+                btn3.setTitle(b3[Int(indexv)!], for: .normal)
+            }
+            if(ans[index] == 4){
+                
+                btn3.setTitle(b4[Int(indexv)!], for: .normal)
+               // btn3.setTitle(b4[ans[index]], for: .normal)
+            }
+            
+            if(uans[index] == 1){
+               // btn4.setTitle(b1[uans[index]], for: .normal)
+                btn4.setTitle(b1[Int(indexv)!], for: .normal)
+                //btn4.setTitle("Continue1", for: .normal);
+            }
+            
+            if(uans[index] == 2){
+               // btn4.setTitle(b2[uans[index]], for: .normal)
+                btn4.setTitle(b2[Int(indexv)!], for: .normal)
+                //btn4.setTitle("not working2", for: .normal)
+            }
+            
+            if(uans[index] == 3){
+               // btn4.setTitle(b3[uans[index]], for: .normal)
+               btn4.setTitle(b3[Int(indexv)!], for: .normal)
+                // btn4.setTitle("not working3", for: .normal)
+            }
+            if(uans[index] == 4){
+                //btn4.setTitle(b4[uans[index]], for: .normal)
+             btn4.setTitle(b4[Int(indexv)!], for: .normal)
+                //   btn4.setTitle("not working4", for: .normal)
+            }
+            if(ans[index] == uans[index]){
+                tellUser.text = ("Right Answer")
+            }
+            else{
+                tellUser.text = ("Wrong Answer")
+            }
+            
+            scr.text = ("Score " + String(score));
+         ques.text = ("Summery")
+          
+            index += 1
+            count += 1
+            indexv = String(index)
+           
+            
+        
+    }
+    }
     /*
     // MARK: - Navigation
 
